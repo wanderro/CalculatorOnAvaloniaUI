@@ -1,0 +1,71 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Calculator.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Calculator.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Calculator"
+
+        MinWidth="350" MinHeight="480"
+        Width="380" Height="500"
+
+        WindowStartupLocation="CenterScreen">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Grid RowDefinitions="* 3*">
+
+        <ScrollViewer Grid.Row="0"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto">
+            <TextBlock Classes="DisplayBlock"
+                       Text="{Binding DisplayText}" />
+        </ScrollViewer>
+
+
+        <UniformGrid Grid.Row="1"
+                     Name="ButtonsGrid"
+                     Columns="4">
+
+            <Button Content="R" Classes="OperationButton" />
+            <Button Classes="OperationButton" Command="{Binding ClearLastCommand}">
+                <Button.Content>
+                    <Path Fill="{Binding $parent[Button].Foreground}"
+                          Stretch="Uniform"
+                          Width="{Binding $parent[Button].FontSize}"
+                          Data="M19,15.59L17.59,17L14,13.41L10.41,17L9,15.59L12.59,12L9,8.41L10.41,7L14,10.59L17.59,7L19,8.41L15.41,12L19,15.59M22,3A2,2 0 0,1 24,5V19A2,2 0 0,1 22,21H7C6.31,21 5.77,20.64 5.41,20.11L0,12L5.41,3.88C5.77,3.35 6.31,3 7,3H22M22,5H7L2.28,12L7,19H22V5Z" />
+                </Button.Content>
+            </Button>
+            <Button Content="C" Classes="OperationButton" Command="{Binding AllClearCommand}"/>
+            <Button Content="/" Classes="OperationButton SymbolButton" />
+
+            <Button Content="7" Classes="SymbolButton" />
+            <Button Content="8" Classes="SymbolButton"/>
+            <Button Content="9" Classes="SymbolButton"/>
+            <Button Content="*" Classes="OperationButton SymbolButton" />
+
+            <Button Content="4" Classes="SymbolButton"/>
+            <Button Content="5" Classes="SymbolButton"/>
+            <Button Content="6" Classes="SymbolButton"/>
+            <Button Content="-" Classes="OperationButton SymbolButton" />
+
+            <Button Content="1" Classes="SymbolButton"/>
+            <Button Content="2" Classes="SymbolButton"/>
+            <Button Content="3" Classes="SymbolButton"/>
+            <Button Content="+" Classes="OperationButton SymbolButton" />
+
+            <Button Content="+/-" />
+            <Button Content="0" Classes="SymbolButton"/>
+            <Button Content="." Classes="SymbolButton"/>
+            <Button Content="=" Classes="accent" Command="{Binding CalcCommand}"/>
+
+        </UniformGrid>
+    </Grid>
+
+</Window>
